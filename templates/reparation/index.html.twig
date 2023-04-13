@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reparation index{% endblock %}
+
+{% block body %}
+    <h1>Reparation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description_Panne</th>
+                <th>Etat</th>
+                <th>Date_rep</th>
+                <th>Date_declaration</th>
+                <th>Date_recuperation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reparation in reparations %}
+            <tr>
+                <td>{{ reparation.id }}</td>
+                <td>{{ reparation.DescriptionPanne }}</td>
+                <td>{{ reparation.Etat }}</td>
+                <td>{{ reparation.DateRep ? reparation.DateRep|date('Y-m-d') : '' }}</td>
+                <td>{{ reparation.DateDeclaration ? reparation.DateDeclaration|date('Y-m-d') : '' }}</td>
+                <td>{{ reparation.DateRecuperation ? reparation.DateRecuperation|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_reparation_show', {'id': reparation.id}) }}">show</a>
+                    <a href="{{ path('app_reparation_edit', {'id': reparation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reparation_new') }}">Create new</a>
+{% endblock %}
